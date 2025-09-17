@@ -30,3 +30,6 @@ logs/
 # Misc
 *.tgz
 *.zip
+
+# Developer notes
+todo.md

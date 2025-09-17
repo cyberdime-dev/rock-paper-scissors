@@ -65,3 +65,29 @@ buttons.forEach(button => {
     playGame(playerChoice);
   });
 });
+
+// Add keyboard support
+document.addEventListener("keydown", (e) => {
+  const keyMap = { 
+    r: "rock", 
+    p: "paper", 
+    s: "scissors" 
+  };
+  const choice = keyMap[e.key.toLowerCase()];
+  if (choice) {
+    playGame(choice);
+  }
+});
+
+// Reset function
+function resetGame() {
+  playerScore = 0;
+  computerScore = 0;
+  playerScoreEl.textContent = playerScore;
+  computerScoreEl.textContent = computerScore;
+  resultText.textContent = "";
+  computerChoiceImage.textContent = "❓";
+}
+
+// Add reset button listener
+document.getElementById("reset-btn").addEventListener("click", resetGame);
