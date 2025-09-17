@@ -124,37 +124,98 @@ function playGame(playerChoice) {
       return;
     }
     
+    // Start the thinking animation and disable buttons
+    startThinkingAnimation();
+    setButtonsEnabled(false);
+    
     const computerChoice = getComputerChoice();
-    const winner = determineWinner(playerChoice, computerChoice);
+    
+    // After 3 seconds, reveal the result
+    setTimeout(() => {
+      revealComputerChoice(computerChoice);
+      const winner = determineWinner(playerChoice, computerChoice);
 
-    // Show emoji
-    if (computerChoiceImage && emojiMap[computerChoice]) {
-      computerChoiceImage.textContent = emojiMap[computerChoice];
-    }
-
-    // Update result text and scores
-    if (winner === "player") {
-      gameState.incrementPlayerScore();
-      if (resultText) {
-        resultText.textContent = `You win! ${playerChoice} beats ${computerChoice}.`;
+      // Update result text and scores
+      if (winner === "player") {
+        gameState.incrementPlayerScore();
+        if (resultText) {
+          resultText.textContent = `You win! ${playerChoice} beats ${computerChoice}.`;
+        }
+      } else if (winner === "computer") {
+        gameState.incrementComputerScore();
+        if (resultText) {
+          resultText.textContent = `You lose! ${computerChoice} beats ${playerChoice}.`;
+        }
+      } else {
+        if (resultText) {
+          resultText.textContent = "It's a draw!";
+        }
       }
-    } else if (winner === "computer") {
-      gameState.incrementComputerScore();
-      if (resultText) {
-        resultText.textContent = `You lose! ${computerChoice} beats ${playerChoice}.`;
-      }
-    } else {
-      if (resultText) {
-        resultText.textContent = "It's a draw!";
-      }
-    }
+      
+      // Re-enable buttons
+      setButtonsEnabled(true);
+      
+    }, 3000);
     
   } catch (error) {
     console.error("Error during game play:", error);
     if (resultText) {
       resultText.textContent = "An error occurred. Please try again.";
     }
+    setButtonsEnabled(true);
   }
+}
+
+/**
+ * Starts the thinking animation with bouncing fist
+ */
+function startThinkingAnimation() {
+  if (computerChoiceImage) {
+    computerChoiceImage.textContent = "👊";
+    computerChoiceImage.className = "emoji thinking";
+    computerChoiceImage.setAttribute("aria-label", "Computer is thinking");
+  }
+}
+
+/**
+ * Reveals the computer's choice with animation
+ * @param {string} computerChoice - The computer's choice
+ */
+function revealComputerChoice(computerChoice) {
+  if (computerChoiceImage && emojiMap[computerChoice]) {
+    // Remove thinking animation
+    computerChoiceImage.classList.remove("thinking");
+    
+    // Show computer choice with reveal animation
+    computerChoiceImage.textContent = emojiMap[computerChoice];
+    computerChoiceImage.className = "emoji reveal";
+    computerChoiceImage.setAttribute("aria-label", `Computer chose ${computerChoice}`);
+    
+    // Remove reveal class after animation
+    setTimeout(() => {
+      if (computerChoiceImage) {
+        computerChoiceImage.classList.remove("reveal");
+      }
+    }, 500);
+  }
+}
+
+/**
+ * Enables or disables game buttons
+ * @param {boolean} enabled - Whether buttons should be enabled
+ */
+function setButtonsEnabled(enabled) {
+  const gameButtons = document.querySelectorAll("button[data-choice]");
+  gameButtons.forEach(button => {
+    button.disabled = !enabled;
+    if (enabled) {
+      button.style.opacity = "1";
+      button.style.cursor = "pointer";
+    } else {
+      button.style.opacity = "0.6";
+      button.style.cursor = "not-allowed";
+    }
+  });
 }
 
 // Add event listeners to buttons
@@ -188,6 +249,22 @@ document.addEventListener("keydown", (e) => {
 function resetGame() {
   try {
     gameState.reset();
+    
+    // Clear result text
+    if (resultText) {
+      resultText.textContent = "";
+    }
+    
+    // Reset computer choice display
+    if (computerChoiceImage) {
+      computerChoiceImage.textContent = "❓";
+      computerChoiceImage.className = "emoji";
+      computerChoiceImage.setAttribute("aria-label", "Waiting for game to start");
+    }
+    
+    // Ensure buttons are enabled
+    setButtonsEnabled(true);
+    
   } catch (error) {
     console.error("Error resetting game:", error);
   }

@@ -27,6 +27,20 @@ body {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+/* Disabled button state */
+.choices button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+.choices button:disabled:hover {
+    background: white;
+    transform: none !important;
+    box-shadow: none !important;
+}
+
 /* Touch-friendly interactions */
 .choices button:focus {
     outline: 2px solid #007acc;
@@ -90,6 +104,38 @@ body {
 .emoji {
     font-size: 6rem;
     margin-top: 0.5rem;
+    display: inline-block;
+    transition: all 0.3s ease;
+}
+
+/* Computer thinking animation */
+.emoji.thinking {
+    animation: bounce 0.6s infinite alternate;
+}
+
+@keyframes bounce {
+    0% {
+        transform: translateY(0px);
+    }
+    100% {
+        transform: translateY(-20px);
+    }
+}
+
+/* Reveal animation when showing computer choice */
+.emoji.reveal {
+    animation: reveal 0.5s ease;
+}
+
+@keyframes reveal {
+    0% {
+        transform: scale(0.5);
+        opacity: 0.5;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
 }
 
 /* Responsive Design for Mobile Devices */
