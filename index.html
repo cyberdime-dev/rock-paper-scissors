@@ -7,28 +7,35 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <h1>Rock Paper Scissors</h1>
-  <p class="instructions">Click a button or press R, P, or S keys</p>
-  <div class="score">
-    <p>You: <span id="player-score">0</span></p>
-    <p>Computer: <span id="computer-score">0</span></p>
-  </div>
+  <main>
+    <header>
+      <h1>Rock Paper Scissors</h1>
+      <p class="instructions">Click a button or press R, P, or S keys</p>
+    </header>
+    
+    <section class="game-area">
+      <div class="score" role="status" aria-live="polite">
+        <p>You: <span id="player-score" aria-label="Your score">0</span></p>
+        <p>Computer: <span id="computer-score" aria-label="Computer score">0</span></p>
+      </div>
 
-  <div class="choices">
-    <button data-choice="rock">🪨 Rock</button>
-    <button data-choice="paper">📄 Paper</button>
-    <button data-choice="scissors">✂️ Scissors</button>
-    <button id="reset-btn" class="reset">🔄 Reset</button>
-  </div>
+      <div class="choices">
+        <button data-choice="rock" aria-label="Choose Rock">🪨 Rock</button>
+        <button data-choice="paper" aria-label="Choose Paper">📄 Paper</button>
+        <button data-choice="scissors" aria-label="Choose Scissors">✂️ Scissors</button>
+        <button id="reset-btn" class="reset" aria-label="Reset Game">🔄 Reset</button>
+      </div>
 
-  <div class="result">
-    <p id="result-text"></p>
-  </div>
+      <div class="result" role="status" aria-live="polite">
+        <p id="result-text" aria-label="Game result"></p>
+      </div>
 
-<div class="computer-choice-display">
-  <h2>Computer Chose:</h2>
-  <div id="computer-choice-image" class="emoji">❓</div>
-</div>
+      <div class="computer-choice-display">
+        <h2>Computer Chose:</h2>
+        <div id="computer-choice-image" class="emoji" aria-label="Computer's choice">❓</div>
+      </div>
+    </section>
+  </main>
 
 
   <script src="script.js"></script>

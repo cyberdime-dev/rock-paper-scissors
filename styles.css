@@ -27,6 +27,30 @@ body {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+/* Touch-friendly interactions */
+.choices button:focus {
+    outline: 2px solid #007acc;
+    outline-offset: 2px;
+}
+
+.choices button:focus:not(:focus-visible) {
+    outline: none;
+}
+
+/* Enhanced touch feedback for mobile */
+@media (hover: none) and (pointer: coarse) {
+    .choices button:active {
+        background: #d9d9d9;
+        transform: scale(0.98);
+        transition: all 0.1s ease;
+    }
+    
+    .reset:active {
+        background: #e55555 !important;
+        transform: scale(0.98);
+    }
+}
+
 .reset {
     background: #ff6b6b !important;
     color: white;
@@ -81,12 +105,14 @@ body {
     
     .choices button {
         font-size: 1.1rem;
-        padding: 0.8rem 1.5rem;
-        margin: 0.3rem;
+        padding: 1rem 1.5rem;
+        margin: 0.5rem;
         display: block;
         width: 90%;
         max-width: 300px;
-        margin: 0.3rem auto;
+        margin: 0.5rem auto;
+        min-height: 48px; /* Ensures minimum touch target size */
+        min-width: 48px;
     }
     
     .score {
@@ -106,8 +132,9 @@ body {
 @media (max-width: 480px) {
     .choices button {
         font-size: 1rem;
-        padding: 0.7rem 1.2rem;
+        padding: 1rem 1.2rem;
         width: 95%;
+        min-height: 50px; /* Larger touch targets for smaller screens */
     }
     
     .instructions {
