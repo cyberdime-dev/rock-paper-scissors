@@ -9,6 +9,60 @@ const resultText = document.getElementById("result-text");
 const playerScoreEl = document.getElementById("player-score");
 const computerScoreEl = document.getElementById("computer-score");
 const computerChoiceImage = document.getElementById("computer-choice-image");
+const themeToggle = document.getElementById("theme-toggle");
+
+/**
+ * Theme management object
+ * Handles light/dark theme switching and persistence
+ */
+const themeManager = {
+  /**
+   * Initializes theme based on saved preference or system preference
+   */
+  init() {
+    const savedTheme = localStorage.getItem("theme");
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    const theme = savedTheme || (prefersDark ? "dark" : "light");
+    
+    this.setTheme(theme);
+    this.updateToggleIcon(theme);
+  },
+  
+  /**
+   * Sets the theme and updates the DOM
+   * @param {string} theme - "light" or "dark"
+   */
+  setTheme(theme) {
+    if (theme === "dark") {
+      document.documentElement.setAttribute("data-theme", "dark");
+    } else {
+      document.documentElement.removeAttribute("data-theme");
+    }
+  },
+  
+  /**
+   * Updates the toggle button icon
+   * @param {string} theme - "light" or "dark"
+   */
+  updateToggleIcon(theme) {
+    if (themeToggle) {
+      themeToggle.textContent = theme === "dark" ? "☀️" : "🌙";
+      themeToggle.setAttribute("aria-label", `Switch to ${theme === "dark" ? "light" : "dark"} theme`);
+    }
+  },
+  
+  /**
+   * Toggles between light and dark themes
+   */
+  toggle() {
+    const currentTheme = document.documentElement.getAttribute("data-theme");
+    const newTheme = currentTheme === "dark" ? "light" : "dark";
+    
+    this.setTheme(newTheme);
+    this.updateToggleIcon(newTheme);
+    localStorage.setItem("theme", newTheme);
+  }
+};
 
 /**
  * Game state management object
@@ -272,3 +326,15 @@ function resetGame() {
 
 // Add reset button event listener
 document.getElementById("reset-btn").addEventListener("click", resetGame);
+
+// Add theme toggle event listener
+if (themeToggle) {
+  themeToggle.addEventListener("click", () => {
+    themeManager.toggle();
+  });
+}
+
+// Initialize theme on page load
+document.addEventListener("DOMContentLoaded", () => {
+  themeManager.init();
+});
