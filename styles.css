@@ -67,3 +67,54 @@ body {
     font-size: 6rem;
     margin-top: 0.5rem;
 }
+
+/* Responsive Design for Mobile Devices */
+@media (max-width: 768px) {
+    body {
+        padding: 1rem;
+    }
+    
+    h1 {
+        font-size: 1.8rem;
+        margin-bottom: 1rem;
+    }
+    
+    .choices button {
+        font-size: 1.1rem;
+        padding: 0.8rem 1.5rem;
+        margin: 0.3rem;
+        display: block;
+        width: 90%;
+        max-width: 300px;
+        margin: 0.3rem auto;
+    }
+    
+    .score {
+        font-size: 1rem;
+        margin: 1rem 0;
+    }
+    
+    .score p {
+        margin: 0.5rem 0;
+    }
+    
+    .emoji {
+        font-size: 4rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .choices button {
+        font-size: 1rem;
+        padding: 0.7rem 1.2rem;
+        width: 95%;
+    }
+    
+    .instructions {
+        font-size: 0.8rem;
+    }
+    
+    .emoji {
+        font-size: 3rem;
+    }
+}
