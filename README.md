@@ -3,7 +3,6 @@
 > **A showcase of how minimal code can deliver maximum impact**
 
 [![Live Demo](https://img.shields.io/badge/🚀_Live_Demo-Visit_Site-blue?style=for-the-badge)](https://cyberdime-dev.github.io/rock-paper-scissors)
-[![GitHub](https://img.shields.io/badge/💻_Source_Code-GitHub-black?style=for-the-badge)](https://github.com/cyberdime-dev/game-rock-paper-scissors)
 
 ## 🎯 **Project Overview**
 
